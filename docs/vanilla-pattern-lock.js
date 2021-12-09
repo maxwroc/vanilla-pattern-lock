@@ -199,6 +199,7 @@ var PatternLock = (function () {
             this.selectedDotIndexes = [];
             this.svg.classList.remove("success", "error");
             this.lineCanvas.clear();
+            this.emit("clear");
         }
         success() {
             this.svg.classList.remove("error");

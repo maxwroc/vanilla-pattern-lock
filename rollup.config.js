@@ -8,11 +8,12 @@ import pkg from './package.json';
 let targetFileName = pkg.main;
 
 const filesToCopy = [
-  { src: 'src/styles.css', dest: 'dist' }
+  { src: 'src/styles.css', dest: 'dist', rename: pkg.name + '.css' }
 ];
 
 if (!process.env.RELEASE) {
-  filesToCopy.push({ src: ['src/*.css', 'dist/*.js', 'dist/*.map'], dest: 'docs' })
+  filesToCopy.push({ src: 'src/styles.css', dest: 'docs', rename: pkg.name + '.css' })
+  filesToCopy.push({ src: ['dist/*.js', 'dist/*.map'], dest: 'docs' })
 }
 
 const plugins = [

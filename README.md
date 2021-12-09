@@ -1,34 +1,49 @@
-# typescript-project-boilerplate
-Startup setup for new typescript project
+# vanilla-pattern-lock
+Android like pattern unlock.
 
-## What is here?
+## Features
 
-* Card code written in TypeScript
-* Bundling all the files to single output
-* Map file generated, poiting to repo url (with version etc), this way debugging is possible without having source code locally
-* Two bundle types: debug and crunched one
+* Converts pattern to number
+* Vanilla JS - no external libs required
+* Support for touch devices
+* Small size (less than 10KB)
+* TS typings
 
-## How to use it?
-1. Clone this repo to your box
+![pattern-lock2-ffmpg](https://user-images.githubusercontent.com/8268674/145471565-15d1bc26-fb09-4471-9cf7-a699f378762e.gif)
 
-    `git clone https://github.com/maxwroc/typescript-project-boilerplate.git your-project-name`
+## Usage
 
-2. Create empty repo on your git server and copy it's url
+```javascript
+const lock = new PatternLock({ vibrate: true });
+lock
+  .render(document.getElementById("lockContainer"))
+  .on("complete", pattern => {
+      if (pattern == 12345) {
+          lock.success();
+      }
+      else {
+          lock.failure();
+          setTimeout(() => {
+              lock.clear();
+          }, 2000);
+      }
+  })
+```
 
-3. Change the remote url
+## Installation / download
 
-    `git remote set-url origin [your target repo url]`
+* Install via NMP
 
-4. Push the code and you are ready to go
+  ```
+  npm install vanilla-pattern-lock
+  ```
 
-    `git push origin master`
+* Github releases: [vanilla-pattern-lock/releases](https://github.com/maxwroc/vanilla-pattern-lock/releases)
 
-5. Build
+## Like it? Star it!
 
-    Run `npm install` once before first build.
+If you like it please consider leaving star on github.
 
-   * `npm run build` produces debug version of the code (just bundled but no crunched)
-   * `npm run release` produces crunched bundle
+## Credits
 
-    The output files are located in `dist` directory.
-
+This code is based on [Tympanix/pattern-lock-js](https://github.com/Tympanix/pattern-lock-js). The original library depends on JQuery and it is written in plain JS. I have rewritten the original code in TypeScript and I've added few additional features.

@@ -43,6 +43,7 @@ export default class PatternLock extends EventEmitter {
         this.selectedDotIndexes = [];
         this.svg.classList.remove("success", "error");
         this.lineCanvas.clear();
+        this.emit("clear"); 
     }
 
     success(): void {
