@@ -1,5 +1,6 @@
 import typescript from '@rollup/plugin-typescript';
 import resolve from '@rollup/plugin-node-resolve';
+import copy from 'rollup-plugin-copy';
 import { terser } from 'rollup-plugin-terser';
 import pkg from './package.json';
 
@@ -8,6 +9,14 @@ export default function (args) {
   let targetFileName = pkg.main;
 
   const plugins = [
+    copy({
+      targets: [
+        { src: 'src/styles.css', dest: 'dist' },
+        { src: 'src/styles.css', dest: 'docs' },
+        { src: 'dist/*', dest: 'docs' },
+      ],
+      hook: 'writeBundle'
+    }),
     resolve()
   ];
 
@@ -42,6 +51,7 @@ export default function (args) {
     external: [],
     input: 'src/index.ts',
     output: {
+      name: "PatternLock",
       globals: {},
       file: targetFileName,
       format: 'iife',

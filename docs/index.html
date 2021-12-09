@@ -1,9 +1,15 @@
 <html>
     <head>
         <title>App Stats</title>
-        <script src="typescript-project-boilerplate.js"></script>
+        <link rel="stylesheet" href="styles.css" />
+        <script src="vanilla-pattern-lock.js"></script>
+        <script type="text/javascript">
+            window.addEventListener("load", () => {
+                new PatternLock({}).render(document.getElementById("container")).on("complete", pattern => console.log("Patern: " + pattern));
+            })
+        </script>
     </head>
     <body style="background-color: #333; color: gray; font-size: 16px; padding: 10px;">
-        
+        <div id="container"></div>
     </body>    
 </html>
