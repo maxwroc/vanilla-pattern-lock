@@ -44,7 +44,7 @@ jobs:
       # upload release assets
       - name: Upload release assets
         run: |
-          gh release upload --clobber ${{ env.VERSION }} ${{ env.FILES }}
+          find ./dist -type f -exec gh release upload --clobber ${{ env.VERSION }} {} +
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERSION: ${{ steps.create_release.outputs.tag_name }}
