@@ -7,12 +7,17 @@ import pkg from './package.json';
 
 let targetFileName = pkg.main;
 
+const filesToCopy = [
+  { src: 'src/styles.css', dest: 'dist' }
+];
+
+if (!process.env.RELEASE) {
+  filesToCopy.push({ src: ['src/*.css', 'dist/*.js', 'dist/*.map'], dest: 'docs' })
+}
+
 const plugins = [
   copy({
-    targets: [
-      { src: 'src/styles.css', dest: 'dist' },
-      { src: ['src/*.css', 'dist/*.js', 'dist/*.map'], dest: 'docs' }
-    ],
+    targets: filesToCopy,
     hook: 'writeBundle'
   }),
   resolve(),
