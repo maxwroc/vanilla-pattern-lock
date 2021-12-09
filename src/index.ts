@@ -61,12 +61,12 @@ export default class PatternLock extends EventEmitter {
             e.preventDefault();
             disableScroll();
             
-            this.lineCanvas.start();
+            this.lineCanvas.startTracking();
 
             let endEvent = e.type == 'touchstart' ? 'touchend' : 'mouseup';
             Evt.once(document, endEvent, (e) => {
                 enableScroll();
-                this.lineCanvas.end();
+                this.lineCanvas.endTracking();
 
                 if (this.selectedDotIndexes.length) {
                     this.emit("complete", this.getPattern());

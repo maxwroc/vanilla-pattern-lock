@@ -25,17 +25,17 @@ export class LineCanvas extends EventEmitter {
     constructor(private svg: SVGSVGElement) {
         super();
         this.availableDots = Array.from(svg.querySelectorAll('.lock-dots circle'));
-        this.lineCanvas = svg.querySelector('.lock-lines')!;
-        this.markerCanvas = svg.querySelector('.lock-actives')!;
+        this.lineCanvas = svg.querySelector<SVGGraphicsElement>('.lock-lines')!;
+        this.markerCanvas = svg.querySelector<SVGGraphicsElement>('.lock-actives')!;
         this.pt = this.svg.createSVGPoint(); // TODO: createSVGPoint deprecated
     }
 
-    start() {
+    startTracking() {
         this.discoverDotHandler = e => this.discoverDot(e);
         Evt.on(this.svg, moveEvent, this.discoverDotHandler);
     }
 
-    end() {
+    endTracking() {
         this.stopTrack(this.currentline)
         this.currentline && this.currentline.remove();
         Evt.off(this.svg, moveEvent, this.discoverDotHandler);
