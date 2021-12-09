@@ -1,9 +1,114 @@
 <html>
     <head>
         <title>App Stats</title>
-        <script src="typescript-project-boilerplate.js"></script>
+        <link rel="stylesheet" href="vanilla-pattern-lock.css" />
+        <script src="vanilla-pattern-lock.js"></script>
+        <script type="text/javascript">
+            window.addEventListener("load", () => {
+
+                const pass = 15987;
+                const passResult = document.getElementById("pass-result");
+                passResult.textContent = pass;
+
+                const lock = new PatternLock({});
+                lock.render(document.getElementById("container"))
+                    .on("complete", pattern => {
+                        if(pattern == pass) {
+                            passResult.classList.add("success");
+                            lock.success();
+                        }
+                        else {
+                            passResult.classList.add("failure");
+                            lock.failure();
+                        }
+
+                        passResult.textContent = pattern;
+                    })
+                    .on("clear", () => {
+                        passResult.classList.remove("success", "failure");
+                        passResult.textContent = pass;
+                    });
+            });
+        </script>
+        <style type="text/css">
+
+            * {
+                --primary-color: #f0f0f0;
+                --secondary-color: #d6d6d6;
+                --primary-bgcolor: #333;
+                --secondary-bgcolor: #222;
+                --highlight-color: #fff;
+                --content-max-width: 500px;
+            }
+
+            a {
+                color: var(--highlight-color);
+            }
+            a:visited {
+                color: var(--secondary-color);
+            }
+
+            body {
+                background-color: var(--primary-bgcolor);
+                color: var(--primary-color);
+                font-family: monospace;
+                font-size: 16px; 
+                padding: 10px;
+            }
+            
+            h2 {
+                color: var(--primary-color);
+                font-size: 120%;
+                border-top: 1px solid var(--secondary-bgcolor);
+                padding-top: 15px;
+                margin-top: 20px;
+            }
+
+            #wrapper {
+                max-width: var(--content-max-width);
+            }
+            
+            #container,
+            #pass-info {
+                border: 1px solid var(--secondary-bgcolor);
+                border-radius: 20px;
+            }
+
+            #pass-info {
+                margin-top: 20px;
+                padding: 20px;
+            }
+            #pass-result.success {
+                color: green;
+            }
+            #pass-result.failure {
+                color: red;
+            }
+        </style>
     </head>
-    <body style="background-color: #333; color: gray; font-size: 16px; padding: 10px;">
-        
+    <body>
+        <div id="wrapper">
+            <div id="container"></div>
+            <div id="pass-info">
+                <span>Pass: </span><span id="pass-result">15987</span>
+            </div>
+            <h2>Pattern Lock</h2>
+            <p>
+                A light weight plugin to simulate Android's like pattern (un)lock mechanism.
+            </p>
+            <p>Written in vanilla javascript so it doesn't require any additional libraries.</p>
+
+            <h2>How it works?</h2>
+            <p>It converts selected nodes into numbers. You can imagine phone numeric keyboard which is behind the nodes. So selecting the top left node, the middle one and the bottom right will result in 159.</p>
+            <div>
+                <img src="https://user-images.githubusercontent.com/8268674/145449911-bba4d83f-593b-4d4d-a7e7-8ffb402fe626.png" />
+            </div>
+
+            <h2>Code</h2>
+            <ul>
+                <li>Source: <a href="https://github.com/maxwroc/vanilla-pattern-lock">maxwroc/vanilla-pattern-lock</a></li>
+                <li>Size: &lt; 10KB</li>
+            </ul>
+        </div>
     </body>    
 </html>

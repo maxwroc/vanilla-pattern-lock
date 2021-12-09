@@ -1,34 +1,56 @@
-# typescript-project-boilerplate
-Startup setup for new typescript project
+# vanilla-pattern-lock
+Android like pattern unlock.
 
-## What is here?
+## Features
 
-* Card code written in TypeScript
-* Bundling all the files to single output
-* Map file generated, poiting to repo url (with version etc), this way debugging is possible without having source code locally
-* Two bundle types: debug and crunched one
+* Converts pattern to number
+* Vanilla JS - no external libs required
+* Support for touch devices
+* Small size (less than 10KB)
+* TS typings
 
-## How to use it?
-1. Clone this repo to your box
+![pattern-lock2-ffmpg](https://user-images.githubusercontent.com/8268674/145471565-15d1bc26-fb09-4471-9cf7-a699f378762e.gif)
 
-    `git clone https://github.com/maxwroc/typescript-project-boilerplate.git your-project-name`
+## Demo
 
-2. Create empty repo on your git server and copy it's url
+https://maxwroc.github.io/vanilla-pattern-lock/
 
-3. Change the remote url
+## Usage
 
-    `git remote set-url origin [your target repo url]`
+```javascript
+const lock = new PatternLock({ 
+    vibrate: true // whether to vibrate on dot/node selection (mobile devices)
+});
 
-4. Push the code and you are ready to go
+lock
+  .render(document.getElementById("lockContainer"))
+  .on("complete", pattern => { // triggers when user stops swiping
+      if (pattern == 12345) {
+          lock.success(); // green markers
+      }
+      else {
+          lock.failure(); // red markers
+          setTimeout(() => {
+              lock.clear();
+          }, 2000);
+      }
+  })
+```
 
-    `git push origin master`
+## Installation / download
 
-5. Build
+* Install via NMP
 
-    Run `npm install` once before first build.
+  ```
+  npm install vanilla-pattern-lock
+  ```
 
-   * `npm run build` produces debug version of the code (just bundled but no crunched)
-   * `npm run release` produces crunched bundle
+* Github releases: [vanilla-pattern-lock/releases](https://github.com/maxwroc/vanilla-pattern-lock/releases)
 
-    The output files are located in `dist` directory.
+## Like it? Star it!
 
+If you like it please consider leaving star on github.
+
+## Credits
+
+This code is based on [Tympanix/pattern-lock-js](https://github.com/Tympanix/pattern-lock-js). The original library depends on JQuery and it is written in plain JS. I have rewritten the original code in TypeScript and I've added few additional features.
