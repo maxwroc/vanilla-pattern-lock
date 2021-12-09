@@ -11,18 +11,25 @@ Android like pattern unlock.
 
 ![pattern-lock2-ffmpg](https://user-images.githubusercontent.com/8268674/145471565-15d1bc26-fb09-4471-9cf7-a699f378762e.gif)
 
+## Demo
+
+https://maxwroc.github.io/vanilla-pattern-lock/
+
 ## Usage
 
 ```javascript
-const lock = new PatternLock({ vibrate: true });
+const lock = new PatternLock({ 
+    vibrate: true // whether to vibrate on dot/node selection (mobile devices)
+});
+
 lock
   .render(document.getElementById("lockContainer"))
-  .on("complete", pattern => {
+  .on("complete", pattern => { // triggers when user stops swiping
       if (pattern == 12345) {
-          lock.success();
+          lock.success(); // green markers
       }
       else {
-          lock.failure();
+          lock.failure(); // red markers
           setTimeout(() => {
               lock.clear();
           }, 2000);
