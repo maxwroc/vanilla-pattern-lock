@@ -26,7 +26,12 @@ const plugins = [
   }),
   resolve(),
   typescript({ 
-    tsconfigOverride: { compilerOptions: { declaration: !!process.env.RELEASE } },
+    tsconfigOverride: { 
+      compilerOptions: { 
+        declaration: !!process.env.RELEASE,
+        declarationDir: "src/dts"
+      } 
+    },
     useTsconfigDeclarationDir: process.env.RELEASE
   })
 ];
