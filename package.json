@@ -1,6 +1,6 @@
 {
   "name": "vanilla-pattern-lock",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Pattern lock lib written in vanilla JS",
   "main": "./dist/vanilla-pattern-lock.es.js",
   "types": "./dist/index.d.ts",
