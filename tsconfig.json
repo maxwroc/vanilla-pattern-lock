@@ -7,8 +7,6 @@
         "strictNullChecks": true,
         "noImplicitThis": true,
         "strict": true,
-        "strictPropertyInitialization": false,
-        "declaration": true,
-        "declarationDir": "src/dts"
+        "strictPropertyInitialization": false
     }
 }
