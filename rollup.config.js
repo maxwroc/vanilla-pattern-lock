@@ -5,7 +5,8 @@ import copy from 'rollup-plugin-copy';
 import { terser } from 'rollup-plugin-terser';
 import pkg from './package.json';
 
-let targetFileName = pkg.main;
+
+const iifeFilePath = pkg.main.replace(".es", "");
 
 const filesToCopy = [
   { src: 'src/styles.css', dest: 'dist', rename: pkg.name + '.css' }
@@ -13,7 +14,7 @@ const filesToCopy = [
 
 if (!process.env.RELEASE) {
   filesToCopy.push({ src: 'src/styles.css', dest: 'docs', rename: pkg.name + '.css' })
-  filesToCopy.push({ src: ['dist/*.js', 'dist/*.map'], dest: 'docs' })
+  filesToCopy.push({ src: [iifeFilePath, 'dist/*.map'], dest: 'docs' })
 }
 
 const plugins = [
@@ -49,11 +50,23 @@ export default [
     output: {
       name: "PatternLock",
       globals: {},
-      file: targetFileName,
+      file: iifeFilePath,
       format: 'iife',
-      sourcemap: true,
+      sourcemap: false, // TODO fix mappings
       sourcemapExcludeSources: true,
       sourcemapPathTransform: sourcemapPathTransform
+    },
+    plugins: plugins,
+  },
+  {
+    external: [],
+    input: 'src/index.ts',
+    output: {
+      name: "PatternLock",
+      globals: {},
+      file: pkg.main,
+      format: 'es',
+      sourcemap: false
     },
     plugins: plugins,
   },

@@ -260,4 +260,3 @@ var PatternLock = (function () {
     return PatternLock;
 
 }());
-//# sourceMappingURL=vanilla-pattern-lock.js.map
