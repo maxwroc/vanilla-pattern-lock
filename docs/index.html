@@ -11,7 +11,7 @@
                 const passResult = document.getElementById("pass-result");
                 passResult.textContent = pass;
 
-                const lock = new PatternLock();
+                const lock = new PatternLock({ vibrate: true });
                 lock.render(document.getElementById("container"))
                     .on("complete", pattern => {
                         if(pattern == pass) {
