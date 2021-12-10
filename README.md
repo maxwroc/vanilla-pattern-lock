@@ -1,4 +1,7 @@
 # vanilla-pattern-lock
+[![npm](https://img.shields.io/npm/dm/vanilla-pattern-lock?label=npm%20downloads)](https://www.npmjs.com/package/vanilla-pattern-lock)
+[![npm version](https://img.shields.io/npm/v/vanilla-pattern-lock?color=blue)](https://www.npmjs.com/package/vanilla-pattern-lock)
+
 Android like pattern unlock.
 
 ## Features
@@ -36,6 +39,41 @@ lock
       }
   })
 ```
+
+## Documentation
+
+### Methods
+
+| Method interface | Return value | Description |
+|:-----|:-----|:-----|
+| `render(container: Element)` | `PatternLock` | Renders pattern lock SVG element<br>`container` - Element in which SVG will be rendered
+| `clear()` | `PatternLock` | Clears existing selection and resets internal state
+| `getPattern()` | `number` | Returns current pattern
+| `success()` | `PatternLock` | Shows success markers/indicators
+| `failure()` | `PatternLock` | Shows failure markers/indicators
+
+Event related methods
+
+| Method interface | Return value | Description |
+|:-----|:-----|:-----|
+| `on(name: string, func: Function)` | `PatternLock` | Sets handler for an event (for handler interface look below)
+| `off(name: string, func: Function)` | `PatternLock` | Removes handler for an event
+
+### Events
+
+| Event name | Handler interface | Description |
+|:-----|:-----|:-----|
+| `complete` | `(pattern: number): void` | Fired when user finished entering pattern
+| `select` | `(index: number, elem: Element): void` | Fired when the dot/node is selected.<br>`index` - Index of the dot/node<br>`elem` - Dot element (SVG image element)
+| `selectionStart` | `(): void` | Fired when user starts entering pattern
+| `selectionEnd` | `(): void` | Fired when user ends entering pattern
+| `clear` | `(): void` | Fired when clear method is called (current pattern is erased)
+
+### Settings
+
+| Name | Type | Description |
+|:-----|:-----|:-----|
+| vibrate | `boolean` | Whether to vibrate when dot is selected
 
 ## Installation / download
 

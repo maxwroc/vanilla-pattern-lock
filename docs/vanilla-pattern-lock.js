@@ -18,6 +18,9 @@ var PatternLock = (function () {
             this.listeners[eventName] = (_a = this.listeners[eventName]) === null || _a === void 0 ? void 0 : _a.filter(f => f != func);
             return this;
         }
+        passthrough(eventName, target) {
+            this.on(eventName, (...args) => target.emit.apply(target, [eventName, ...args]));
+        }
         emit(eventName, ...args) {
             var _a;
             (_a = this.listeners[eventName]) === null || _a === void 0 ? void 0 : _a.forEach(func => {
@@ -183,7 +186,8 @@ var PatternLock = (function () {
             container.innerHTML = html;
             this.svg = container.firstElementChild;
             this.lineCanvas = new LineCanvas(this.svg);
-            this.lineCanvas.on("select", (index, dotElem) => {
+            this.lineCanvas.passthrough("select", this);
+            this.on("select", (index, dotElem) => {
                 this.selectedDotIndexes.push(index);
                 if (this.options.vibrate) {
                     window.navigator.vibrate(25);
