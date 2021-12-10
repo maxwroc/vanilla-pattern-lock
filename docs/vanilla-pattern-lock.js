@@ -173,8 +173,8 @@ var PatternLock = (function () {
     class PatternLock extends EventEmitter {
         constructor(options) {
             super();
-            this.options = options;
             this.selectedDotIndexes = [];
+            this.options = Object.assign({ vibrate: false }, options);
         }
         render(container) {
             if (this.lineCanvas) {

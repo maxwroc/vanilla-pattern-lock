@@ -10,8 +10,15 @@ export default class PatternLock extends EventEmitter {
 
     private selectedDotIndexes: number[] = [];
 
-    constructor(private options: IPatternLockOptions) {
+    private options: IPatternLockOptions;
+
+    constructor(options?: IPatternLockOptions) {
         super();
+
+        this.options = {
+            vibrate: false,
+            ...options
+        }
     }
 
     render(container: HTMLElement): PatternLock {
