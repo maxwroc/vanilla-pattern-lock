@@ -88,7 +88,7 @@ export class PatternLock extends EventEmitter {
     }
 
     /**
-     * Show success markers/indicators
+     * Shows success markers/indicators
      * @returns Self
      */
     success(): PatternLock {
@@ -98,7 +98,7 @@ export class PatternLock extends EventEmitter {
     }
 
     /**
-     * Show failure markers/indicators
+     * Shows failure markers/indicators
      * @returns Self
      */
     failure(): PatternLock {
@@ -113,7 +113,7 @@ export class PatternLock extends EventEmitter {
     private initEvents() {
         Evt.on(this.svg, 'touchstart mousedown', (e: Event) => {
 
-            this.emit("trackingStart");
+            this.emit("selectionStart");
 
             this.clear();
             e.preventDefault();
@@ -123,7 +123,7 @@ export class PatternLock extends EventEmitter {
 
             let endEvent = e.type == 'touchstart' ? 'touchend' : 'mouseup';
             Evt.once(document, endEvent, (e) => {
-                this.emit("trackingEnd");
+                this.emit("selectionEnd");
 
                 enableScroll();
                 this.lineCanvas.endTracking();
