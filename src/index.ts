@@ -30,7 +30,8 @@ export default class PatternLock extends EventEmitter {
         this.svg = container.firstElementChild as SVGSVGElement;
 
         this.lineCanvas = new LineCanvas(this.svg);
-        this.lineCanvas.on("select", (index: number, dotElem: Element) => {
+        this.lineCanvas.passthrough("select", this);
+        this.on("select", (index: number, dotElem: Element) => {
             this.selectedDotIndexes.push(index);
             if(this.options.vibrate) {
                 window.navigator.vibrate(25);

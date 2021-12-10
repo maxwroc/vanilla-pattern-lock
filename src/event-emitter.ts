@@ -16,6 +16,10 @@ export class EventEmitter {
         return this;
     }
 
+    passthrough(eventName: string, target: EventEmitter) {
+        this.on(eventName, (...args: any[]) => target.emit.apply(target, [eventName, ...args]));
+    }
+
     protected emit(eventName: string, ...args: any[]) {
         this.listeners[eventName]?.forEach(func => {
             // release the thread
