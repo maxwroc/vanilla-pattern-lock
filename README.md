@@ -1,4 +1,7 @@
 # vanilla-pattern-lock
+[![npm](https://img.shields.io/npm/dm/vanilla-pattern-lock?label=npm%20downloads)](https://www.npmjs.com/package/vanilla-pattern-lock)
+[![npm version](https://img.shields.io/npm/v/vanilla-pattern-lock?color=blue)](https://www.npmjs.com/package/vanilla-pattern-lock)
+
 Android like pattern unlock.
 
 ## Features
