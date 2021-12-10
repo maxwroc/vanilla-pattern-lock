@@ -12,6 +12,8 @@ const filesToCopy = [
   { src: 'src/styles.css', dest: 'dist', rename: pkg.name + '.css' }
 ];
 
+
+
 if (!process.env.RELEASE) {
   filesToCopy.push({ src: 'src/styles.css', dest: 'docs', rename: pkg.name + '.css' })
   filesToCopy.push({ src: [iifeFilePath, 'dist/*.map'], dest: 'docs' })
@@ -23,10 +25,15 @@ const plugins = [
     hook: 'writeBundle'
   }),
   resolve(),
-  typescript({ useTsconfigDeclarationDir: true })
+  typescript({ 
+    tsconfigOverride: { compilerOptions: { declaration: !!process.env.RELEASE } },
+    useTsconfigDeclarationDir: process.env.RELEASE
+  })
 ];
 
 let sourcemapPathTransform = undefined;
+
+const additionalBundles = [];
 
 if (process.env.RELEASE) {
   plugins.push(
@@ -41,6 +48,27 @@ if (process.env.RELEASE) {
   repoRoot += "/";
 
   sourcemapPathTransform = file => repoRoot + "v" + pkg.version + file.substr(2);
+
+  // this bundle is the main package bundle (required for import statements from external modules)
+  additionalBundles.push({
+    external: [],
+    input: 'src/index.ts',
+    output: {
+      name: "PatternLock",
+      globals: {},
+      file: pkg.main,
+      format: 'es',
+      sourcemap: false
+    },
+    plugins: plugins,
+  });
+
+  // bundling .d.ts files
+  additionalBundles.push({
+    input: 'src/dts/index.d.ts',
+    output: [{ file: "dist/index.d.ts", format: "es" }],
+    plugins: [dts()]
+  });
 }
 
 export default [
@@ -58,21 +86,5 @@ export default [
     },
     plugins: plugins,
   },
-  {
-    external: [],
-    input: 'src/index.ts',
-    output: {
-      name: "PatternLock",
-      globals: {},
-      file: pkg.main,
-      format: 'es',
-      sourcemap: false
-    },
-    plugins: plugins,
-  },
-  {
-    input: 'src/dts/index.d.ts',
-    output: [{ file: "dist/index.d.ts", format: "es" }],
-    plugins: [dts()]
-  },
+  ...additionalBundles
 ];
